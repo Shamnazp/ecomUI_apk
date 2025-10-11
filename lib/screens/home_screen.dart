@@ -181,7 +181,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ),
-
                     SizedBox(height: screenHeight * 0.01),
 
                     // Indicators

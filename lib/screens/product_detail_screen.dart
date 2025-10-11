@@ -28,6 +28,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
+    // Product-related images
     final relatedImages = product.id == 'p1'
         ? [
             'assets/dresscard1.jpg',
@@ -38,11 +39,25 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           ]
         : [
             'assets/shoe1.jpg',
-            'assets/dresscard1.jpg',
+            'assets/shoecard2.jpg',
             'assets/shoecard3.jpg',
             'assets/shoecard4.jpg',
             'assets/shoecard5.jpg',
           ];
+
+    // Product description 
+    final productDescription = product.id == 'p1'
+        ? "This minimal white t-shirt features a clean gradient finish that gives it a premium look. Perfect for everyday wear — soft, breathable fabric ensures all-day comfort while maintaining a stylish and versatile appearance."
+        : "These vintage-style sneakers are a perfect blend of comfort and fashion. With their classic retro design, durable sole, and high-quality finish, they’re ideal for both casual and sporty looks. Great grip, lightweight feel — built for daily use.";
+
+    // Color options
+    final List<Color> colorOptions = product.id == 'p1'
+        ? [
+            Colors.white,
+            Colors.grey.shade700,
+            Colors.blueAccent,
+          ] // T-shirt colors
+        : [Colors.black, Colors.brown, Colors.redAccent]; // Shoe colors
 
     return Scaffold(
       body: SafeArea(
@@ -50,44 +65,71 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Main product image - full width
+              /// MAIN PRODUCT IMAGE
               SizedBox(
                 width: double.infinity,
                 height: screenHeight * 0.5,
                 child: Image.asset(selectedImage, fit: BoxFit.cover),
               ),
 
-              SizedBox(height: screenHeight * 0.015),
+              SizedBox(height: screenHeight * 0.02),
 
-              // Category
+              /// CATEGORY
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
                 child: Text(
-                  product.id == 'p1' ? "Category: Dress" : "Category: Shoes",
+                  product.id == 'p1' ? "Category: T-Shirt" : "Category: Shoes",
                   style: TextStyle(
-                    fontSize: screenHeight * 0.015,
+                    fontSize: screenHeight * 0.017,
                     color: Colors.grey,
-                  ),
-                ),
-              ),
-
-              SizedBox(height: screenHeight * 0.005),
-
-              // Product Title
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
-                child: Text(
-                  product.title,
-                  style: TextStyle(
-                    fontSize: screenHeight * 0.02,
-                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
 
               SizedBox(height: screenHeight * 0.006),
 
-              // Description + rating
+              /// TITLE
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
+                child: Text(
+                  product.title,
+                  style: TextStyle(
+                    fontSize: screenHeight * 0.023,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+
+              SizedBox(height: screenHeight * 0.015),
+
+              /// COLOR OPTIONS
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
+                child: Row(
+                  children: colorOptions
+                      .map(
+                        (color) => Container(
+                          margin: EdgeInsets.only(right: screenWidth * 0.02),
+                          width: screenHeight * 0.035,
+                          height: screenHeight * 0.035,
+                          decoration: BoxDecoration(
+                            color: color,
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: Colors.black.withOpacity(0.1),
+                              width: 1.5,
+                            ),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                ),
+              ),
+
+              SizedBox(height: screenHeight * 0.02),
+
+              /// DESCRIPTION + RATING
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
                 child: Row(
@@ -95,7 +137,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   children: [
                     Expanded(
                       child: Text(
-                        "${product.description}\n\nLorem fdhshfudhfouasf oh fshu gauag hasg hsdg hfa8 fg h8ofgdo ofig hfgog h fh 8fad hof ofa haf ofadhfhd hgfgfh ghfd8f ipsum is simply dummy fsdhhfdshusdfliuflnfdslnfds  gfuSDhilfdSDUHusdfgf sF oS GSFHouis hos Gohs O SF sFbfuSGRH u sdh8ors oSRG Hou8uSF o87SEG chggfsdygusdkyuSDGSDGVB SDFGHKSvyuFGHG FJHB TYFVHG ,jbsdfbytFGBMNd fjkhfbtyiAVBNB,A bytas ,as kuybsa ,dAHYBygbsa ,BSDTYGASDK SAM,BSAUGBDSK ada,mjbADKUYB  o8SGohsR o87SRG HoS hG P g8Oy SGRp9 8G 98...",
+                        productDescription,
                         style: TextStyle(
                           fontSize: screenHeight * 0.018,
                           color: const Color.fromARGB(255, 99, 96, 96),
@@ -104,8 +146,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       ),
                     ),
                     SizedBox(width: screenWidth * 0.05),
+
+                    /// RATING
                     Transform.translate(
-                      offset: Offset(0, -screenHeight * 0.05), // move up safely
+                      offset: Offset(0, -screenHeight * 0.09), // move up safely
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -113,7 +157,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             Icons.star,
                             color: Colors.amber,
                             size: screenHeight * 0.028,
-              
                           ),
                           SizedBox(height: screenHeight * 0.005),
                           Text(
@@ -132,7 +175,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
               SizedBox(height: screenHeight * 0.04),
 
-              // Footer: price + add to cart
+              /// FOOTER: PRICE + ADD TO CART
               Container(
                 padding: EdgeInsets.symmetric(
                   horizontal: screenWidth * 0.04,
@@ -144,7 +187,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // Price
+                    /// PRICE
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -158,7 +201,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         Text(
                           "\$${product.price.toStringAsFixed(2)}",
                           style: TextStyle(
-                            fontSize: screenHeight * 0.018,
+                            fontSize: screenHeight * 0.022,
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
                           ),
@@ -166,7 +209,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       ],
                     ),
 
-                    // Add to Cart button
+                    /// ADD TO CART BUTTON
                     SizedBox(
                       width: screenWidth * 0.45,
                       height: screenHeight * 0.06,
@@ -176,9 +219,12 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text('${product.title} added to cart'),
+                              behavior: SnackBarBehavior.floating,
+                              duration: Duration(seconds: 2),
                             ),
                           );
                         },
+                        
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.black,
                           shape: RoundedRectangleBorder(
