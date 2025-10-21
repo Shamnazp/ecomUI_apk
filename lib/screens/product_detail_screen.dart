@@ -12,6 +12,7 @@ class ProductDetailScreen extends StatefulWidget {
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
   late String selectedImage;
+  String selectedSize = "M"; // default selected size
 
   @override
   void didChangeDependencies() {
@@ -45,7 +46,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             'assets/shoecard5.jpg',
           ];
 
-    // Product description 
+    // Product description
     final productDescription = product.id == 'p1'
         ? "This minimal white t-shirt features a clean gradient finish that gives it a premium look. Perfect for everyday wear — soft, breathable fabric ensures all-day comfort while maintaining a stylish and versatile appearance."
         : "These vintage-style sneakers are a perfect blend of comfort and fashion. With their classic retro design, durable sole, and high-quality finish, they’re ideal for both casual and sporty looks. Great grip, lightweight feel — built for daily use.";
@@ -127,6 +128,70 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 ),
               ),
 
+              SizedBox(height: screenHeight * 0.01),
+
+              /// SIZE OPTIONS
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: screenHeight * 0.015),
+                    Text(
+                      "Select Size",
+                      style: TextStyle(
+                        fontSize: screenHeight * 0.020,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
+                      ),
+                    ),
+                    SizedBox(height: screenHeight * 0.01),
+
+                    // Size buttons
+                    Row(
+                      children: ["S", "M", "L", "XL"]
+                          .map(
+                            (size) => GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  selectedSize = size;
+                                });
+                              },
+                              child: Container(
+                                margin: EdgeInsets.only(
+                                  right: screenWidth * 0.025,
+                                ),
+                                width: screenHeight * 0.05,
+                                height: screenHeight * 0.05,
+                                decoration: BoxDecoration(
+                                  color: selectedSize == size
+                                      ? Colors.black
+                                      : Colors.grey.shade200,
+                                  borderRadius: BorderRadius.circular(24),
+                                  border: Border.all(
+                                    color: Colors.black.withOpacity(0.3),
+                                  ),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    size,
+                                    style: TextStyle(
+                                      color: selectedSize == size
+                                          ? Colors.white
+                                          : Colors.black,
+                                      fontSize: screenHeight * 0.018,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  ],
+                ),
+              ),
               SizedBox(height: screenHeight * 0.02),
 
               /// DESCRIPTION + RATING
@@ -149,21 +214,21 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
                     /// RATING
                     Transform.translate(
-                      offset: Offset(0, -screenHeight * 0.09), // move up safely
+                      offset: Offset(0, -screenHeight * 0.22), // move up safely
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Icon(
                             Icons.star,
                             color: Colors.amber,
-                            size: screenHeight * 0.028,
+                            size: screenHeight * 0.035,
                           ),
                           SizedBox(height: screenHeight * 0.005),
                           Text(
                             "4.8",
                             style: TextStyle(
                               fontSize: screenHeight * 0.017,
-                              fontWeight: FontWeight.w500,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         ],
@@ -224,7 +289,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             ),
                           );
                         },
-                        
+
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.black,
                           shape: RoundedRectangleBorder(
