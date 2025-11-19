@@ -142,9 +142,7 @@ class CartScreen extends StatelessWidget {
                                 ],
                               ),
 
-                              SizedBox(
-                                height: screenHeight * 0.010,
-                              ), // smaller gap
+                              SizedBox(height: screenHeight * 0.010),
 
                               Row(
                                 mainAxisAlignment:

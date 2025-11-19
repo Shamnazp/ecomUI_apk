@@ -70,7 +70,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               SizedBox(
                 width: double.infinity,
                 height: screenHeight * 0.5,
-                child: Image.asset(selectedImage, fit: BoxFit.cover),
+                child: Hero(
+                  tag: product.id, // same tag as in ProductCard
+                  child: Image.asset(selectedImage, fit: BoxFit.cover),
+                ),
               ),
 
               SizedBox(height: screenHeight * 0.02),

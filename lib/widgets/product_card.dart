@@ -18,12 +18,18 @@ class ProductCard extends StatelessWidget {
         final cardWidth = constraints.maxWidth;
         final cardHeight = constraints.maxHeight;
 
+        //speed for the Hero animation
         return GestureDetector(
           onTap: () {
-            Navigator.pushNamed(
+            Navigator.push(
               context,
-              ProductDetailScreen.routeName,
-              arguments: product,
+              PageRouteBuilder(
+                transitionDuration: Duration(
+                  milliseconds: 600,
+                ), 
+                pageBuilder: (_, __, ___) => ProductDetailScreen(),
+                settings: RouteSettings(arguments: product),
+              ),
             );
           },
           child: Card(
@@ -42,11 +48,16 @@ class ProductCard extends StatelessWidget {
                       borderRadius: BorderRadius.vertical(
                         top: Radius.circular(cardWidth * 0.05),
                       ),
-                      child: Image.asset(
-                        product.imageUrl,
+                      child: SizedBox(
                         height: cardHeight * 0.6,
                         width: double.infinity,
-                        fit: BoxFit.cover,
+                        child: Hero(
+                          tag: product.id, // <-- important: unique stable tag
+                          child: Image.asset(
+                            product.imageUrl,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                       ),
                     ),
                     SizedBox(height: cardHeight * 0.03),

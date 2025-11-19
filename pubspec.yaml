@@ -33,6 +33,8 @@ dependencies:
   cupertino_icons: ^1.0.5
   provider: ^6.0.5
   google_fonts: ^6.3.2
+  getwidget: ^2.0.4
+  shared_preferences: ^2.0.15
   
 
 

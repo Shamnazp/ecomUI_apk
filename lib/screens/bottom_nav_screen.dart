@@ -2,7 +2,7 @@ import 'package:ecom_apk/screens/profilescreen.dart';
 import 'package:flutter/material.dart';
 import 'home_screen.dart';
 import 'bag_screen.dart';
-import 'search_screen.dart'; // create this later
+import 'search_screen.dart'; 
 
 class BottomNavScreen extends StatefulWidget {
   @override
@@ -18,7 +18,6 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
     CartScreen(),
     ProfileScreen(),
   ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
